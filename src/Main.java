@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-    private static String changeNumber;
+    private static String number;
     private static String name;
 
     public static void main(String[] args) {
@@ -18,13 +18,24 @@ public class Main {
             System.out.println("Введите номер телефона или Имя:");
             inLine = scanner.nextLine().trim();
             if (checkPhoneNumber(inLine)) {
-                System.out.println("Ты ввёл номер: " + changeNumber);
-                check = false;
+                if (telephoneBook.containsKey(number)) {
+                    System.out.println("Имя:" + telephoneBook.get(number));
+                    System.out.println("Номер телефона: " + number);
+                } else {
+                    System.out.println("Чтобы добавить новый контаккт в книгу, введите имя: ");
+                    String inName = scanner.nextLine().trim();
+                    if (checkName(inName)) {
+                        telephoneBook.put(number, inName);
+                    } else {
+                        System.out.println("Имя введено неверно!");
+                        continue;
+                    }
+                }
+                System.out.println("Ты ввёл номер: " + number);
                 continue;
             }
             if (checkName(inLine)) {
                 System.out.println("Ты ввёл имя: " + name);
-                check = false;
             }
 
         } while (check);
@@ -35,15 +46,14 @@ public class Main {
         if (inNumber.matches("[0-9-)(+]+")) {
             Pattern pattern = Pattern.compile("[^0-9]");
             Matcher matcher = pattern.matcher(inNumber);
-            changeNumber = matcher.replaceAll("");
-            if (changeNumber.length() == 12 && changeNumber.startsWith("375")) {
-                    check = true;
-            }
-            if (changeNumber.length() == 11 && changeNumber.startsWith("80")) {
-                    changeNumber = "375" + changeNumber.substring(2);
-                    check = true;
+            number = matcher.replaceAll("");
+            if (number.length() == 12 && number.startsWith("375")) {
+                check = true;
+            } else if (number.length() == 11 && number.startsWith("80")) {
+                number = "375" + number.substring(2);
+                check = true;
             } else {
-                changeNumber = null;
+                number = null;
             }
         }
         return check;
