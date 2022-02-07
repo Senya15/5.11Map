@@ -7,10 +7,11 @@ import java.util.regex.Pattern;
 public class Main {
     private static String number;
     private static String name;
+    private static String inLine;
+    private static Command command;
 
     public static void main(String[] args) {
         boolean check = true;
-        String inLine;
         Map<String, String> telephoneBook = new HashMap<>();
         telephoneBook.put("375336019174", "Влад");
         Scanner scanner = new Scanner(System.in);
@@ -39,6 +40,14 @@ public class Main {
             }
 
         } while (check);
+    }
+
+    private static void checkInLine() {
+        if (checkPhoneNumber(inLine)) {
+            command = Command.NUMBER;
+        } else if (checkName(inLine)) {
+            command = Command.NAME
+        }
     }
 
     private static boolean checkPhoneNumber(String inNumber) {
