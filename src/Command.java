@@ -1,3 +1,3 @@
 public enum Command {
-    NUMBER, NAME, LIST, EXIT
+    NUMBER, NAME, LIST, EXIT, NONE
 }
