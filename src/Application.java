@@ -27,13 +27,6 @@ public class Application {
             inLine = scanner.nextLine().trim();
             checkInLine();
             switch (getCommand()) {
-                case LIST:
-                    printMap(telephoneBookKeyNumber);
-                    break;
-                case EXIT:
-                    System.out.println("Програма завершена...");
-                    check = false;
-                    break;
                 case NUMBER:
                     if (telephoneBookKeyNumber.containsKey(number)) {
                         System.out.println("Имя: " + telephoneBookKeyNumber.get(number));
@@ -67,6 +60,9 @@ public class Application {
                         }
                     }
                     break;
+                case LIST:
+                    printMap(telephoneBookKeyNumber);
+                    break;
                 case DELETE:
                     System.out.println("\tВведите номер телефона или имя контка для удаления:");
                     String s = scanner.nextLine().trim();
@@ -82,6 +78,10 @@ public class Application {
                     if (checkPhoneNumber(s)) {
                         telephoneBookKeyNumber.remove(number);
                     }
+                    break;
+                case EXIT:
+                    System.out.println("Програма завершена...");
+                    check = false;
                     break;
                 default:
                     System.out.println("Некоректный ввод! Повторите");
@@ -136,8 +136,7 @@ public class Application {
 
     private void printMap(Map<String, String> numberMap) {
         if (!numberMap.isEmpty()) {
-            System.out.println("Список \"telephoneBookKeyNumber\"");
-
+            System.out.println("Список контактов:");
             numberMap.entrySet().stream()
                     .sorted(Map.Entry.comparingByValue())
                     .forEach(entrySet -> System.out.println(entrySet.getValue() + " ==> " + entrySet.getKey()));
