@@ -105,31 +105,31 @@ public class Application {
         }
     }
 
-    private boolean checkPhoneNumber(String inNumber) {
+    private boolean checkPhoneNumber(String number) {
         boolean check = false;
-        if (inNumber.matches("[0-9-)(+]+")) {
+        if (number.matches("[0-9-)(+]+")) {
             Pattern pattern = Pattern.compile("[^0-9]");
-            Matcher matcher = pattern.matcher(inNumber);
-            number = matcher.replaceAll("");
-            if (number.length() == 12 && number.startsWith("375")) {
+            Matcher matcher = pattern.matcher(number);
+            this.number = matcher.replaceAll("");
+            if (this.number.length() == 12 && this.number.startsWith("375")) {
                 check = true;
-            } else if (number.length() == 11 && number.startsWith("80")) {
-                number = "375" + number.substring(2);
+            } else if (this.number.length() == 11 && this.number.startsWith("80")) {
+                this.number = "375" + this.number.substring(2);
                 check = true;
             } else {
-                number = null;
+                this.number = null;
             }
         }
         return check;
     }
 
-    private boolean checkName(String inName) {
+    private boolean checkName(String name) {
         boolean check = false;
-        if (inName.matches("^[А-Яа-я]+")) {
-            name = inName;
+        if (name.matches("^[А-Яа-я]+")) {
+            this.name = name;
             check = true;
         } else {
-            name = null;
+            this.name = null;
         }
         return check;
     }
